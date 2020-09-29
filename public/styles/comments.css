@@ -66,7 +66,7 @@ a {
 }
 
 .blog-comment .meta {
-	font-size: 13px;
+	font-size: 18px;
 	color: #aaaaaa;
 	padding-bottom: 8px;
 	margin-bottom: 10px !important;
@@ -92,3 +92,18 @@ a {
 	line-height: 30px;
 	font-weight: 800;
 }
+
+.pull-right {
+    float: right!important;
+}
+
+.hide {
+    display:none;
+}
+
+.show {
+    position: relative;
+    animation: animatetop 0.4s;
+}
+
+@keyframes animatetop{from{top:-20px;opacity:0} to{top:0;opacity:1}}

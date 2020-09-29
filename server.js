@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser= require('body-parser')
 const app = express();
 
-const MongoClient = require('mongodb').MongoClient
+const { MongoClient, ObjectId } = require('mongodb')
 
 app.set('view engine','ejs')
 
@@ -57,7 +57,7 @@ MongoClient.connect('mongodb://localhost:27017', {
             res.json('Success')
         })        
         .catch(error => console.error(error))
-    })
+    })    
 
     app.delete('/quotes', (req, res) => {
         quotesCollection.deleteOne(
@@ -69,6 +69,25 @@ MongoClient.connect('mongodb://localhost:27017', {
             }
             res.json(`Deleted Darth Vader's quote`)
         })
+        .catch(error => console.error(error))
+    })
+
+    app.put('/subcomment', (req, res) => {        
+        quotesCollection.findOneAndUpdate(
+            { _id: ObjectId(req.body.id) },
+            {
+                $push: {
+                    subcomment: {
+                        name: req.body.name,
+                        quote: req.body.quote
+                    }                    
+                }
+            }
+        )
+        .then(result => {
+            console.log(result);
+            res.json('Success')
+        })        
         .catch(error => console.error(error))
     })
 })

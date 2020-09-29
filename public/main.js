@@ -38,4 +38,29 @@ deleteButton.addEventListener('click', _ => {
             window.location.reload(true)
         }      
     })    
-})
+});
+
+function subComment(id){    
+    const name = document.getElementById('name_'+id).value;
+    const quote = document.getElementById('comment_'+id).value;
+    fetch('/subcomment', {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id: id,
+            name: name,
+            quote: quote
+        })
+    })
+    .then(res => {
+        if (res.ok) return res.json()
+    })
+    .then(response => {
+        window.location.reload(true)
+    })
+}
+
+function openCommentBox(id) {      
+    let commentBox = document.getElementById('subcomment_'+id);    
+    commentBox.className = 'post-comments show'    
+}

@@ -47,29 +47,55 @@
                     <img src="svg/c3p0.svg" class="avatar" alt="">
                   <% } %>
 				            <div class="post-comments">
-                      <p class="meta"><a href="#"><%= quotes[i].name %></a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                      <p class="meta"><a href="#"><%= quotes[i].name %></a> says : <i class="pull-right">                        
+                          <button class='btn btn-sm btn-secondary' onclick="openCommentBox('<%= quotes[i]._id %>')"><small>Reply</small></button>
+                        </i>
+                      </p>
                       <p>
                         <%= quotes[i].quote %>
                       </p>
                     </div>  
-                    <ul class="comments">
-                      <li class="clearfix">
-                          <% if(quotes[i].name.toUpperCase() == 'YODA') { %>
-                            <img src="svg/obiwan.svg" class="avatar" alt="">
-                          <% }else if (quotes[i].name.toUpperCase() == 'DARTH VADER') { %>
-                            <img src="svg/stormtrooper.svg" class="avatar" alt="">
-                          <% }else{ %>
-                            <img src="svg/bb8.svg" class="avatar" alt="">
-                          <% } %>                          
-                          <div class="post-comments">
-                              <p class="meta">Dec 20, 2014 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
-                              <p>
-                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                  Etiam a sapien odio, sit amet
-                              </p>
-                          </div>
-                      </li>
-                  </ul>                                  
+                    <% if(quotes[i].subcomment) { %>
+                      <ul class="comments">                
+                        <% for(var j = 0; j < quotes[i].subcomment.length; j++) {%>      
+                          <li class="clearfix">
+                              <% if(quotes[i].subcomment[j].name.toUpperCase() == 'YODA') { %>
+                                <img src="svg/yoda.svg" class="avatar" alt="">
+                              <% }else if (quotes[i].subcomment[j].name.toUpperCase() == 'DARTH VADER') { %>
+                                <img src="svg/darthvader.svg" class="avatar" alt="">
+                              <% }else if(quotes[i].name.toUpperCase() == 'YODA') { %>
+                                <img src="svg/obiwan.svg" class="avatar" alt="">
+                              <% }else if (quotes[i].name.toUpperCase() == 'DARTH VADER') { %>
+                                <img src="svg/stormtrooper.svg" class="avatar" alt="">
+                              <% }else{ %>
+                                  <img src="svg/bb8.svg" class="avatar" alt="">
+                              <% } %>                          
+                              <div class="post-comments">
+                                  <p class="meta">Dec 20, 2014 <a href="#"><%= quotes[i].subcomment[j].name %></a> says : <i class="pull-right">
+                                      <button class='btn btn-sm btn-secondary' onclick="openCommentBox('<%= quotes[i]._id %>')"><small>Reply</small></button>
+                                    </i>
+                                  </p>
+                                  <p>
+                                    <%= quotes[i].subcomment[j].quote %>
+                                  </p>
+                              </div>
+                          </li>
+                        <% } %>                
+                    </ul>                                    
+                  <% } %>                                               
+                  <div id="subcomment_<%= quotes[i]._id %>" class="post-comments hide">
+                    <form>                      
+                      <p class="meta">
+                        <input id='name_<%= quotes[i]._id %>' type="text" class="form-control" placeholder="Name" name="name">
+                      </p>                     
+                      <div class="input-group">
+                        <input id='comment_<%= quotes[i]._id %>' type="text" class="form-control" placeholder="Comment" name="Comment">
+                        <div class="input-group-append">
+                          <button type="button" class='btn btn-primary pull-right' onclick="subComment('<%= quotes[i]._id %>')">Comment</button>
+                        </div>
+                      </div>                                                                     
+                    </form>                                        
+                  </div>             
                 </li>
               <% } %>
             </ul>
