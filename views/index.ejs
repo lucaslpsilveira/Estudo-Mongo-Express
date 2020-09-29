@@ -23,16 +23,8 @@
           <button type="submit" class='btn btn-secondary'>Submit</button>
         </form>
         <hr>
-        <div class="blog-comment">
-          <div class='row'>
-            <div class='col-md-6'>
-              <h3>Comments</h3>
-            </div>
-            <div class='col-md-6 text-right' >
-              <button id="update-button" class='btn btn-primary'>Changing Yoda’s quote</button>
-              <button id="delete-button" class='btn btn-danger'>Delete Darth Vadar's quote</button>  
-            </div>
-          </div>          
+        <div class="blog-comment">                      
+          <h3>Comments</h3>                      
           <div id="message"></div>        
           <hr/>
             <ul class="comments">
@@ -47,8 +39,15 @@
                     <img src="svg/c3p0.svg" class="avatar" alt="">
                   <% } %>
 				            <div class="post-comments">
-                      <p class="meta"><a href="#"><%= quotes[i].name %></a> says : <i class="pull-right">                        
+                      <p class="meta"><a href="#"><%= quotes[i].name %></a> says : <i class="pull-right">        
+                          <% if(quotes[i].name.toUpperCase() != 'YODA' ) { %>                
+                            <button class='btn btn-sm btn-success' onclick="changeSide('<%= quotes[i]._id %>')"><small>Be a Jedi</small></button>
+                          <% } %>      
+                          <% if(quotes[i].name.toUpperCase() != 'DARTH VADER' ) { %>                
+                            <button class='btn btn-sm btn-danger' onclick="changeSide('<%= quotes[i]._id %>','dark')"><small>Turn to the Dark Side</small></button>                          
+                          <% } %>      
                           <button class='btn btn-sm btn-secondary' onclick="openCommentBox('<%= quotes[i]._id %>')"><small>Reply</small></button>
+                          <button class='btn btn-sm' onclick="deleteComment('<%= quotes[i]._id %>')"><small>x</small></button>
                         </i>
                       </p>
                       <p>
@@ -71,9 +70,7 @@
                                   <img src="svg/bb8.svg" class="avatar" alt="">
                               <% } %>                          
                               <div class="post-comments">
-                                  <p class="meta">Dec 20, 2014 <a href="#"><%= quotes[i].subcomment[j].name %></a> says : <i class="pull-right">
-                                      <button class='btn btn-sm btn-secondary' onclick="openCommentBox('<%= quotes[i]._id %>')"><small>Reply</small></button>
-                                    </i>
+                                  <p class="meta">Dec 20, 2014 <a href="#"><%= quotes[i].subcomment[j].name %></a> says : <i class="pull-right"></i>
                                   </p>
                                   <p>
                                     <%= quotes[i].subcomment[j].quote %>

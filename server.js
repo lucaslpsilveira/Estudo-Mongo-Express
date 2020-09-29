@@ -26,10 +26,9 @@ MongoClient.connect('mongodb://localhost:27017', {
     app.get('/', function (req, res){
         db.collection('quotes').find().toArray()
         .then(results => {
-            res.render('index.ejs',{quotes: results})
+            res.render('index.ejs',{quotes: results.reverse()})
         })
-        .catch(console.error)
-        
+        .catch(console.error)        
     })
     
     app.post('/quotes', (req, res) => {          
@@ -42,11 +41,11 @@ MongoClient.connect('mongodb://localhost:27017', {
 
     app.put('/quotes', (req, res) => {
         quotesCollection.findOneAndUpdate(
-            { name: 'Yoda' },
+            { _id: ObjectId(req.body.id) },
             {
                 $set: {
-                name: req.body.name,
-                quote: req.body.quote
+                    name: req.body.name,
+                    quote: req.body.quote
                 }
             },
             {
@@ -61,13 +60,13 @@ MongoClient.connect('mongodb://localhost:27017', {
 
     app.delete('/quotes', (req, res) => {
         quotesCollection.deleteOne(
-            { name: req.body.name }
+            { _id: ObjectId(req.body.id) }
         )
         .then(result => {
             if (result.deletedCount === 0) {
                 return res.json('No quote to delete')
             }
-            res.json(`Deleted Darth Vader's quote`)
+            res.json(`Deleted quote`)
         })
         .catch(error => console.error(error))
     })
