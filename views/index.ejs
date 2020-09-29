@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/comments.css">
   <meta charset="UTF-8">
   <title>MY APP</title>  
 </head>
@@ -12,25 +13,42 @@
         <h1> May Node and Express be with you. </h1>
         <form action="/quotes" method="POST">
           <div class="form-group">
-          <label>Name</label>
-          <input type="text" class="form-control" placeholder="name" name="name">
-          <label>Quote</label>
-          <input type="text" class="form-control" placeholder="quote" name="quote">
-        </div>
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="name" name="name">
+          </div>
+          <div class="form-group">
+            <label>Comment</label>
+            <input type="text" class="form-control" placeholder="quote" name="quote">
+          </div>
           <button type="submit" class='btn btn-secondary'>Submit</button>
         </form>
         <hr>
-        <div class='card'>
-          <div class='card-header'><h2> Quotes </h2></div>
-          <div class='card-body'>
-            <ul class="quotes">
+        <div class="blog-comment">
+          <h3>Comments</h3>
+          <hr/>
+            <ul class="comments">
               <!-- Loop through quotes -->
               <% for(var i = 0; i < quotes.length; i++) {%>
-                <li class="quote">
-                  <!-- Output name from the iterated quote object -->
-                  <span><%= quotes[i].name %></span>:
-                  <!-- Output quote from the iterated quote object -->
-                  <span><%= quotes[i].quote %></span>
+                <li class="clearfix">
+                  <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
+				            <div class="post-comments">
+                      <p class="meta"><a href="#"><%= quotes[i].name %></a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                      <p>
+                        <%= quotes[i].quote %>
+                      </p>
+                    </div>  
+                    <ul class="comments">
+                      <li class="clearfix">
+                          <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
+                          <div class="post-comments">
+                              <p class="meta">Dec 20, 2014 <a href="#">JohnDoe</a> says : <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
+                              <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                  Etiam a sapien odio, sit amet
+                              </p>
+                          </div>
+                      </li>
+                  </ul>                                  
                 </li>
               <% } %>
             </ul>
